@@ -1,17 +1,21 @@
-# Very Simple example of using heroku-buildapp-ccl64
+# Using the Heroku buildapp for ccl64
 
-Heroku-buildapp-ccl64 is a buildapp for the 64 bit Closure Common Lisp (aka ccl),
-and this heroku-buildapp-ccl64 is a very simple example of how to use that to make
-a single page web site via Hunchentoot.
+First some definitions: [Heroku](https://www.heroku.com/) is a cloud computing platform, and ccl64 is the 64 bit version of [Clozure 
+Common Lisp](http://ccl.clozure.com/).  [Heroku-buildapp-ccl64](https://github.com/bhyde/heroku-buildpack-ccl64)
+is a heroku buildapp, i.e. a tool that is used to convert your application's sources into a so called slug.  Slugs
+are instantiated by Heroku as it scales up your application.
 
-# Try it.
+This repository is an example of using that build app to build a very trivial web server.  It
+uses [Hutchentoot](http://weitz.de/hunchentoot/) to serve a single page (and an image).
+
+# It's easy, try it!
 
 ```bash
 # 1. Clone it
-git clone https://github.com/bhyde/superman.git
+git clone https://github.com/bhyde/heroku-buildapp-ccl64-example1.git
 
 # 2. Create an heroku application to be built by heroku-buildpack-ccl64.
-cd superman
+cd heroku-buildapp-ccl64-example1
 heroku create -s cedar --buildpack https://github.com/bhyde/heroku-buildpack-ccl64.git
 
 # 3. Push this example and watch it build
@@ -27,15 +31,17 @@ In main.lisp you'll note that cl-user:initialize-application is responsible
 for any startup activities your application needs to do.  The saved application's
 main thread does to sleep when this routine returns.  This happens at run time.
 
+Main.lisp is also were we define our single webpage, and ask Hutchentoot to server
+any files it find in the static subdirectory (i.e. the image).
+
 Notice how heroku-compile.lisp is responsible for compiling your code.  That's
 typcially just a matter letting quicklisp do that via your ASDF file.  This happens
-at buildt time.
+at build time.
 
-Note that none of your .lisp or .asd files survive into the slug, and hence are
-not around at runtime due to the contents of .slugignore.  CCL it's self, any fasl
-files created during compilation, and all the systems downloaded by quicklisp
-are stored in the so called "cache" which is visibly only when we are building
-the system.  They don't appear in the slug and so they too are around at runtime.
+Note that CCL it's self, any fasl files created during compilation, and all the
+systems downloaded by quicklisp are stored in build's so called "cache." That
+cache is visible only when we are building the system, they don't appear in the
+slug and so they are not around at runtime.
 
 # A few heroku tricks.
 
