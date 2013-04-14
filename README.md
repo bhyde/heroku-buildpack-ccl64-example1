@@ -10,29 +10,10 @@ uses [Hutchentoot](http://weitz.de/hunchentoot/) to serve a single page (and an 
 
 # It's easy, try it!
 
-You'll need a [Heroku acount and tools](https://devcenter.heroku.com/articles/quickstart).
-
-Then do:
+You'll need a [Heroku acount and tools](https://devcenter.heroku.com/articles/quickstart). Given that then all you need do is run this command:
 
 ```bash
 curl https://gist.github.com/bhyde/5383182/raw/gistfile1.txt | bash
-```
-
-Or if you prefer to a more step by step procedure...
-
-```bash
-# 1. Clone it
-git clone https://github.com/bhyde/heroku-buildpack-ccl64-example1.git
-
-# 2. Create an heroku application to be built by heroku-buildpack-ccl64.
-cd heroku-buildpack-ccl64-example1
-heroku create -s cedar --buildpack https://github.com/bhyde/heroku-buildpack-ccl64.git
-
-# 3. Push this example and watch it build
-git push heroku master
-
-# 4. Visit the new site.
-heroku open
 ```
 
 # A few notes.
@@ -86,4 +67,24 @@ Reset your buildpack to force a recompile from scratch or to update if
 you changed the buildpack>
 ```bash
 heroku config:add BUILDPACK_URL=https://github.com/bhyde/heroku-buildpack-ccl64.git
+```
+
+# Appendix A
+
+If you'd prefer to step thru setting up the application 
+by hand you can use these instructions, or read the script.
+
+```bash
+# 1. Clone it
+git clone https://github.com/bhyde/heroku-buildpack-ccl64-example1.git
+
+# 2. Create an heroku application to be built by heroku-buildpack-ccl64.
+cd heroku-buildpack-ccl64-example1
+heroku create -s cedar --buildpack https://github.com/bhyde/heroku-buildpack-ccl64.git
+
+# 3. Push this example and watch it build
+git push heroku master
+
+# 4. Visit the new site.
+heroku open
 ```
