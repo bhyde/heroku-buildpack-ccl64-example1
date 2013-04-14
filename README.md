@@ -10,12 +10,22 @@ uses [Hutchentoot](http://weitz.de/hunchentoot/) to serve a single page (and an 
 
 # It's easy, try it!
 
+You'll need a [Heroku acount and tools](https://devcenter.heroku.com/articles/quickstart).
+
+Then do:
+
+```bash
+curl https://gist.github.com/bhyde/5383182/raw/gistfile1.txt | bash
+```
+
+Or if you prefer to a more step by step procedure...
+
 ```bash
 # 1. Clone it
-git clone https://github.com/bhyde/heroku-buildapp-ccl64-example1.git
+git clone https://github.com/bhyde/heroku-buildpack-ccl64-example1.git
 
 # 2. Create an heroku application to be built by heroku-buildpack-ccl64.
-cd heroku-buildapp-ccl64-example1
+cd heroku-buildpack-ccl64-example1
 heroku create -s cedar --buildpack https://github.com/bhyde/heroku-buildpack-ccl64.git
 
 # 3. Push this example and watch it build
