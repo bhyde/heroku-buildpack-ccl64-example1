@@ -20,7 +20,7 @@
   (setf hunchentoot:*dispatch-table*
         `(hunchentoot:dispatch-easy-handlers
           ,(hunchentoot:create-folder-dispatcher-and-handler 
-            "/" "/app/static/)))
+            "/" "/app/static/")))
 
   ;; If we are restarting, say for example when we are developing,
   ;; then we need to stop any existing web server.
