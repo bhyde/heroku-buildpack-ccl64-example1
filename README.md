@@ -1,23 +1,31 @@
-# Using the Heroku buildapp for ccl64
-
-First some definitions.  [Heroku](https://www.heroku.com/) is a cloud computing platform.  You can run your applications on Heroku.  Ccl64 is the 64 bit version of [Clozure Common Lisp](http://ccl.clozure.com/).  [Heroku-buildapp-ccl64](https://github.com/bhyde/heroku-buildpack-ccl64)
-is a heroku buildapp.  Buildapps are tools used to convert the sources of your app into slugs.  Slugs are internal to Heroku; as Heroku scales up your app up and down it instantiates the slugs into works, known as dynos.
-
-With that out of the way, this repository is an example  of using heroku-buildapp-ccl64 to run a simple Common Lisp application on Heroku.  It uses [Hutchentoot](http://weitz.de/hunchentoot/) to serve a single page (and an image).
-
 # It's easy, try it!
 
-You'll need a [Heroku acount and tools](https://devcenter.heroku.com/articles/quickstart), as well as git and curl.  Given that then all you need do is run this command and you'll have a running application.
+You'll need a [Heroku acount and tools](https://devcenter.heroku.com/articles/quickstart), as 
+well as git and curl.  Given that then all you need do is run this command and you'll have a
+running application.
 
 ```bash
 curl https://gist.github.com/bhyde/5383182/raw/gistfile1.txt | bash
 ```
+# What is this?
 
-Heroku is free for low volume applications.  Notice we didn't even install Clozure Common Lisp on your local machine.
+This is a trival working example that will run a Common Lisp web app on Heroku, for free.
+
+First some definitions.  [Heroku](https://www.heroku.com/) is a cloud computing platform.  You run apps on Heroku.
+Ccl64 is the 64 bit version of [Clozure Common Lisp](http://ccl.clozure.com/), it's one of many Common Lisp
+implementations.  We will use that.  [Heroku-buildapp-ccl64](https://github.com/bhyde/heroku-buildpack-ccl64)
+is a heroku buildapp.  Buildapps are tools used to convert the sources of your app into slugs.  And, slugs are
+internal object of Heroku; as Heroku scales up your app up it instantiates the slugs into workers, known as dynos.
+
+So this repository is an example of using heroku-buildapp-ccl64 to run a simple Common Lisp application on Heroku.  
+It uses [Hutchentoot](http://weitz.de/hunchentoot/) to serve a single page (and an image).
 
 # A few notes.
 
-Notice that in the instructions we didn't even install Closure Common Lisp.  Going forward you'll probably want that.
+Heroku is free for low volume applications.
+
+Notice that in the instructions we didn't even install Closure Common Lisp.  But, going forward you'll probably
+want that.
 
 In main.lisp you'll note that cl-user:initialize-application is responsible
 for any startup activities your application needs to do.  The saved application's
@@ -30,10 +38,9 @@ Notice how heroku-compile.lisp is responsible for compiling your code.  That's
 typcially just a matter letting quicklisp do it, via your ASDF file.  This happens
 at build time.
 
-Note that CCL it's self, any fasl files created during compilation, and all the
-systems downloaded by quicklisp are stored in build's so called "cache." That
-cache is visible only when we are building the system, they don't appear in the
-slug and so they are not around at runtime.
+Note we do not include much into the slug.  Not CCL, none of the fasl files,
+none of the source for the systems downloaded by Quicklisp and ASDF.  These
+are all stored, at build time, in the so called "cache."
 
 The buildapp uses CCL 1.7, the latest quicklisp, and the ASDF from quicklisp.  To
 change these things fork and modify the buildapp.
@@ -71,6 +78,16 @@ Reset your buildpack to force a recompile from scratch or to update if
 you changed the buildpack>
 ```bash
 heroku config:add BUILDPACK_URL=https://github.com/bhyde/heroku-buildpack-ccl64.git
+```
+
+You can list all your existing apps:
+```bash
+heroku apps
+```
+
+You can delete on of these:
+```bash
+heroku apps:destroy <name>
 ```
 
 # Appendix A
