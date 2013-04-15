@@ -1,24 +1,48 @@
 # It's easy, try it!
 
 You'll need a [Heroku acount and tools](https://devcenter.heroku.com/articles/quickstart), as 
-well as git and curl.  Given that then all you need do is run this command and you'll have a
-running application.
+well as git and curl.  Given that then all you need do is run the following command.  /tmp
+might be a good working directory.
 
 ```bash
 curl https://gist.github.com/bhyde/5383182/raw/gistfile1.txt | bash
 ```
+
+When this finishes your browser will display our trival website running on Heroku.
+
 # What is this?
 
-This is a trival working example that will run a Common Lisp web app on Heroku, for free.
+This is a trival working example of running a Common Lisp web app on Heroku, for free.
 
-First some definitions.  [Heroku](https://www.heroku.com/) is a cloud computing platform.  You run apps on Heroku.
-Ccl64 is the 64 bit version of [Clozure Common Lisp](http://ccl.clozure.com/), it's one of many Common Lisp
-implementations.  We will use that.  [Heroku-buildapp-ccl64](https://github.com/bhyde/heroku-buildpack-ccl64)
-is a heroku buildapp.  Buildapps are tools used to convert the sources of your app into slugs.  And, slugs are
-internal object of Heroku; as Heroku scales up your app up it instantiates the slugs into workers, known as dynos.
+First some definitions.  [Heroku](https://www.heroku.com/) is a cloud
+computing platform.  You run apps on Heroku.  Ccl64 is the 64 bit
+version of [Clozure Common Lisp](http://ccl.clozure.com/), it's one of
+many Common Lisp implementations.  We will use that.
+[Heroku-buildapp-ccl64](https://github.com/bhyde/heroku-buildpack-ccl64)
+is a heroku buildapp.  Buildapps are tools used to convert the sources
+of your app into slugs.  And, slugs are internal object of Heroku; as
+Heroku scales up your app up it instantiates the slugs into workers,
+known as dynos.
 
-So this repository is an example of using heroku-buildapp-ccl64 to run a simple Common Lisp application on Heroku.  
-It uses [Hutchentoot](http://weitz.de/hunchentoot/) to serve a single page (and an image).
+So this repository is an example of using heroku-buildapp-ccl64 to run
+a simple Common Lisp application on Heroku.  It uses
+[Hutchentoot](http://weitz.de/hunchentoot/) to serve a single page
+(and an image).
+
+# What now?
+
+The sources of you little application are in the directory heroku-buildpack-ccl64-example1.
+
+You can tinker with main.lisp to change the web site, and then update the site by commiting
+your changes and pushing them to heroku.
+
+```bash
+git commit -m 'geewiz' main.lisp
+git push heroku master
+```
+
+You can delete the application using ```heroku apps:destroy <name>```, and then
+you can delete the heroku-buildpack-ccl64-example1 directory.
 
 # A few notes.
 
